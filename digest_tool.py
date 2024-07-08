@@ -84,9 +84,22 @@ elif arg1 == 'list':
   for c in containers:
     for i in images:
       if i.imageId == c.digest:
-        message = c.name + " " + c.id + " " + i.digest
+        message = c.name + "\t" + c.id + "\t" + i.digest
         print(message)
-    #print(c.digest)
+
+elif arg1 == 'find':
+  containerId = arg2
+  print(("Name\tContainerId\tImageDigest"))
+  
+  containers = listContainers()
+  images = listImages()
+  
+  for c in containers:
+    if c.id == containerId:
+      for i in images:
+        if i.imageId == c.digest:
+          message = c.name + "\t" + c.id + "\t" + i.digest
+          print(message)
 
 elif arg1 == 'help':
   helpMessage = '''
@@ -105,8 +118,3 @@ elif arg1 == 'help':
 
   '''
   print(helpMessage)
-
-
-
-
-# docker images --format '{{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.Digest}}'
